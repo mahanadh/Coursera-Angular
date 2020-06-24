@@ -1,0 +1,12 @@
+<div>
+    <ol>
+        <li ng-repeat="item in items">
+
+            {{ item.name }}, {{ item.shortName }}, {{item.description}}
+            <button ng-click="remove(item)">Remove item</button>
+
+        </li>
+    </ol>
+    <div class="error" ng-if="items.length == 0">nothing found </div>
+
+</div>
