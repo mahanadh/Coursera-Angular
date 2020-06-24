@@ -1,7 +1,7 @@
 var app = angular.module('NarrowItDownApp', []);
 
 app.controller('NarrowItDownController', ['$scope', 'MenuSearchService', function($scope, MenuSearchService) {
-    $scope.searchTerm = 'soup';
+    $scope.searchTerm = '';
     $scope.search = function(searchTerm) {
       console.log('Searching for ' + searchTerm);
       MenuSearchService.getMatchedMenuItems(searchTerm).then(function(foundItems) {
