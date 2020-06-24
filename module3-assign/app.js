@@ -1,17 +1,18 @@
 var app = angular.module('NarrowItDownApp', []);
 
-app.controller('NarrowItDownController', ['$scope', 'MenuService', function($scope, MenuService) {
+app.controller('NarrowItDownController', ['$scope', 'MenuSearchService', function($scope, MenuSearchService) {
     $scope.searchTerm = '';
     $scope.search = function(searchTerm) {
       console.log('Searching for ' + searchTerm);
-      MenuService.getMatchedMenuItems(searchTerm).then(function(foundItems) {
+      MenuSearchService.getMatchedMenuItems(searchTerm).then(function(foundItems) {
         $scope.results = foundItems;
       });
     };
+
     $scope.search($scope.searchTerm);
 }]);
 
-app.service('MenuService', ['$http', function($http) {
+app.service('MenuSearchService', ['$http', function($http) {
     var service = this;
     service.getMatchedMenuItems = function(searchTerm) {
         searchTerm = searchTerm.toLowerCase();
@@ -42,6 +43,7 @@ app.service('MenuService', ['$http', function($http) {
 app.directive('foundItems', function() {
     var ddo = {
       restrict: 'E',
+      templateUrl: 'directive.html',
       scope: {
           items: '='
       },
