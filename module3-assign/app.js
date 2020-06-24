@@ -1,18 +1,17 @@
 var app = angular.module('NarrowItDownApp', []);
 
-app.controller('NarrowItDownController', ['$scope', 'MenuSearchService', function($scope, MenuSearchService) {
+app.controller('NarrowItDownController', ['$scope', 'MenuService', function($scope, MenuService) {
     $scope.searchTerm = '';
     $scope.search = function(searchTerm) {
       console.log('Searching for ' + searchTerm);
-      MenuSearchService.getMatchedMenuItems(searchTerm).then(function(foundItems) {
+      MenuService.getMatchedMenuItems(searchTerm).then(function(foundItems) {
         $scope.results = foundItems;
       });
     };
-
     $scope.search($scope.searchTerm);
 }]);
 
-app.service('MenuSearchService', ['$http', function($http) {
+app.service('MenuService', ['$http', function($http) {
     var service = this;
     service.getMatchedMenuItems = function(searchTerm) {
         searchTerm = searchTerm.toLowerCase();
@@ -42,10 +41,9 @@ app.service('MenuSearchService', ['$http', function($http) {
 
 app.directive('foundItems', function() {
     var ddo = {
-      restrict: 'E', //Since this is a directive and not a component, you need to define which type (E = Element since you're using <found-items>)
-      templateUrl: 'directive.html',
+      restrict: 'E',
       scope: {
-          items: '=' // This is two-way binding which you'll need for the array
+          items: '='
       },
       controller: function ($scope) {
         $scope.remove = function (item) {
